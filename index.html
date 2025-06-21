@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Add New Paragliding Flight</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <main>
+    <h1>Add New Paragliding Flight</h1>
+    <form id="flightForm">
+      <label for="pilotName">Pilot Name</label>
+      <input type="text" id="pilotName" name="pilotName" value="Samuele Sartori" required />
+      
+      <label for="flightDate">Flight Date</label>
+      <input type="date" id="flightDate" name="flightDate" required />
+      
+      <label for="description">Description</label>
+      <textarea id="description" name="description" placeholder="Write anything you want..."></textarea>
+      
+      <div class="scores">
+        <div><label for="takeoff">Takeoff</label><input type="number" id="takeoff" name="takeoff" min="1" max="10" step="1" /></div>
+        <div><label for="landing">Landing</label><input type="number" id="landing" name="landing" min="1" max="10" step="1" /></div>
+        <div><label for="manouver">Manouver</label><input type="number" id="manouver" name="manouver" min="1" max="10" step="1" /></div>
+        <div><label for="dinamic">Dynamic</label><input type="number" id="dinamic" name="dinamic" min="1" max="10" step="1" /></div>
+        <div><label for="termic">Thermal</label><input type="number" id="termic" name="termic" min="1" max="10" step="1" /></div>
+      </div>
+      
+      <button type="submit">Save Flight</button>
+    </form>
+    <a href="flights.html">📁 Go to Flights Archive</a>
+  </main>
+<script>
+  const form = document.getElementById('flightForm');
+  const dateInput = document.getElementById('flightDate');
+  dateInput.value = new Date().toISOString().slice(0,10);
+  
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const formData = new FormData(form);
+    const score = {
+      takeoff: parseInt(form.takeoff.value) || null,
+      landing: parseInt(form.landing.value) || null,
+      manouver: parseInt(form.manouver.value) || null,
+      dinamic: parseInt(form.dinamic.value) || null,
+      termic: parseInt(form.termic.value) || null,
+    };
+    formData.set('score', JSON.stringify(score));
+    const res = await fetch('/upload', { method: 'POST', body: formData });
+    if (res.ok) {
+      alert('Flight saved successfully!');
+      form.reset();
+      dateInput.value = new Date().toISOString().slice(0,10);
+      form.pilotName.value = 'Samuele Sartori';
+    } else {
+      alert('Error saving the flight');
+    }
+  });
+</script>
+</body>
+</html>

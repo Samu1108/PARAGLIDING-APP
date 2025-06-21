@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flight Archive</title>
+<link rel="stylesheet" href="flights.css" />
+</head>
+<body>
+<main>
+  <h1>Flight Archive</h1>
+  <select id="flightSelect" aria-label="Select flight date">
+    <option selected disabled>Choose a flight date</option>
+  </select>
+  <div id="flightDetails"></div>
+  <a href="index.html" class="back-link">← Back to Home Page</a>
+</main>
+
+<script>
+  function capitalize(str) {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  }
+
+  async function loadFlights() {
+    const res = await fetch('/api/voli');
+    const dates = await res.json();
+    const select = document.getElementById('flightSelect');
+
+    dates.forEach(date => {
+      const opt = document.createElement('option');
+      opt.value = date;
+      opt.textContent = date;
+      select.appendChild(opt);
+    });
+
+    select.addEventListener('change', async () => {
+      const response = await fetch('/api/volo/' + select.value);
+      const data = await response.json();
+
+      let scoresText = '';
+      for (const [key, value] of Object.entries(data.score)) {
+        scoresText += `${capitalize(key)}: ${value}\n`;
+      }
+
+      const container = document.getElementById('flightDetails');
+      container.innerHTML = `
+        <h2>Flight on ${data.flightDate}</h2>
+        <p><strong>Pilot:</strong> ${data.pilotName}</p>
+        <p><strong>Description:</strong> ${data.description}</p>
+        <p><strong>Scores:</strong></p>
+        <pre>${scoresText.trim()}</pre>
+      `;
+    });
+  }
+
+  loadFlights();
+</script>
+</body>
+</html>

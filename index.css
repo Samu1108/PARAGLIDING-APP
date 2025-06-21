@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+:root {
+  --primary-color: #5a4dff;
+  --primary-dark: #453bcc;
+  --background: #f0f2ff;
+  --text-color: #222;
+  --border-radius: 14px;
+  --shadow-light: rgba(0,0,0,0.1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--background);
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+  color: var(--text-color);
+}
+
+main {
+  background: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 12px 40px var(--shadow-light);
+  margin: 48px 20px;
+  padding: 40px 48px;
+  max-width: 520px;
+  width: 100%;
+}
+
+h1 {
+  margin: 0 0 24px;
+  font-weight: 700;
+  font-size: 2.8rem;
+  text-align: center;
+  color: var(--primary-dark);
+}
+
+label {
+  display: block;
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #444;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+textarea,
+input[type="file"],
+select {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 8px;
+  font-size: 1rem;
+  border-radius: var(--border-radius);
+  border: 2px solid #ddd;
+  background: #fafafa;
+  box-shadow: inset 0 1px 4px #eee;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-family: inherit;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="number"]:focus,
+textarea:focus,
+select:focus,
+input[type="file"]:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 8px var(--primary-color);
+  background: #fff;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.scores-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.scores-row > div {
+  flex: 1 1 100px;
+}
+
+button {
+  margin-top: 32px;
+  width: 100%;
+  padding: 16px;
+  background: var(--primary-color);
+  border: none;
+  border-radius: var(--border-radius);
+  color: white;
+  font-weight: 700;
+  font-size: 1.2rem;
+  cursor: pointer;
+  box-shadow: 0 6px 12px rgba(90,77,255,0.5);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button:hover,
+button:focus {
+  background: var(--primary-dark);
+  box-shadow: 0 8px 16px rgba(69,59,204,0.8);
+  outline: none;
+}
+
+a {
+  display: block;
+  margin-top: 40px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  color: var(--primary-dark);
+  text-decoration: underline;
+}
+
+@media (max-width: 480px) {
+  main {
+    margin: 32px 12px;
+    padding: 32px 24px;
+  }
+
+  h1 {
+    font-size: 2.2rem;
+  }
+
+  button {
+    font-size: 1rem;
+    padding: 14px;
+  }
+}
